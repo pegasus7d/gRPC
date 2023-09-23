@@ -24,7 +24,7 @@ func doLongGreet(c pb.GreetServiceClient){
 	for _,req:= range reqs{
 		log.Printf("Sending req:%v\n",req)
 		stream.Send(req)
-		time.Sleep(1*time.Second)
+		time.Sleep(5*time.Second)
 	}
 
 	res,err:=stream.CloseAndRecv()

@@ -6,6 +6,7 @@ import (
 
 	pb "github.com/pegasus7d/grpc/greet/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 var addr string = "localhost:50051"
@@ -22,7 +23,20 @@ func main() {
 	}
 
 	log.Printf("Listening on %s\n",addr)
-	s:=grpc.NewServer()
+	opts:=[]grpc.ServerOption{}
+	tls:=true 
+	if tls{
+		certFile:="ssl/server.crt"
+		keyFile:="ssl/server.pem"
+		creds,err:=credentials.NewServerTLSFromFile(certFile,keyFile)
+
+		if err!=nil{
+			log.Fatalf("Failed Loading cerificates%v\n",err)
+		}
+		opts=append(opts, grpc.Creds(creds))
+		
+	}
+	s:=grpc.NewServer(opts...)
 
 	pb.RegisterGreetServiceServer(s,&Server{
 		
