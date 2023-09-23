@@ -2,10 +2,11 @@ package main
 
 import (
 	"log"
+	"time"
 
+	pb "github.com/pegasus7d/grpc/greet/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	pb "github.com/pegasus7d/grpc/greet/proto"
 )
 
 var addr string = "localhost:50051"
@@ -23,6 +24,7 @@ func main() {
 	// doGreet(c)
 	// doGreetManyTimes(c)
 	// doLongGreet(c)
-	doGreetEveryone(c)
+	// doGreetEveryone(c)
+	doGreetWithDeadline(c,1*time.Second)
 	
 }
